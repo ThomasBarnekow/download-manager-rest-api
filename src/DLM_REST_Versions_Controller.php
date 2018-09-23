@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/DLM_REST_Controller.php';
+
 /**
  * The DLM REST Versions Controller.
  */

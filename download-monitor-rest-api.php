@@ -6,6 +6,9 @@ Version: 0.2.0
 Author: Thomas Barnekow
  */
 
+require_once dirname(__FILE__) . '/src/DLM_REST_Downloads_Controller.php';
+require_once dirname(__FILE__) . '/src/DLM_REST_Versions_Controller.php';
+
 function dlm_rest_activate()
 {
   flush_rewrite_rules();
