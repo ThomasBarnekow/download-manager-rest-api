@@ -26,6 +26,10 @@ abstract class DLM_REST_Controller
    */
   public function get_items_permissions_check($request)
   {
+    if (!is_user_logged_in()) {
+      return $this->unauthorized_error();
+    }
+
     return $this->current_user_can_read();
   }
 
@@ -37,6 +41,10 @@ abstract class DLM_REST_Controller
    */
   public function create_item_permissions_check($request)
   {
+    if (!is_user_logged_in()) {
+      return $this->unauthorized_error();
+    }
+
     return $this->current_user_is_editor();
   }
 
@@ -50,7 +58,7 @@ abstract class DLM_REST_Controller
     if (!current_user_can('read')) {
       return new WP_Error(
         'rest_forbidden',
-        esc_html__('You cannot view the download resource.'),
+        esc_html__('You are not authorized to read ' . $this->resource_name . '.'),
         array('status' => $this->authorization_status_code())
       );
     }
@@ -72,12 +80,26 @@ abstract class DLM_REST_Controller
     if (!$is_authorized) {
       return new WP_Error(
         'rest_forbidden',
-        esc_html__('You do not have the required authorization to create or edit items.'),
+        esc_html__('You are not authorized to create, update, or delete ' . $this->resource_name . '.'),
         array('status' => $this->authorization_status_code())
       );
     }
 
     return true;
+  }
+
+  /**
+   * Creates an HTTP 401 response.
+   * 
+   * @return WP_Error
+   */
+  protected function unauthorized_error()
+  {
+    return new WP_Error(
+      'rest_unauthorized',
+      esc_html__('Your request lacks valid authentication credentials for the target resource.'),
+      array('status' => $this->authorization_status_code())
+    );
   }
 
   /**

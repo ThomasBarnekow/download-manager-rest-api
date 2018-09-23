@@ -17,7 +17,7 @@ register_activation_hook(__FILE__, 'dlm_rest_activate');
 
 function dlm_rest_register_routes()
 {
-  $namespace = '/download-nonitor/v1';
+  $namespace = '/download-monitor/v1';
 
   $downloads_controller = new DLM_REST_Downloads_Controller($namespace);
   $downloads_controller->register_routes();
