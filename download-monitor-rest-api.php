@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Download Manager REST API
-Description: RESTful API for Download Manager
+Plugin Name: Download Monitor REST API
+Description: RESTful API for Download Monitor
 Version: 0.2.0
 Author: Thomas Barnekow
  */
@@ -14,7 +14,7 @@ register_activation_hook(__FILE__, 'dlm_rest_activate');
 
 function dlm_rest_register_routes()
 {
-  $namespace = '/download-manager/v1';
+  $namespace = '/download-nonitor/v1';
 
   $downloads_controller = new DLM_REST_Downloads_Controller($namespace);
   $downloads_controller->register_routes();
